@@ -1,0 +1,5 @@
+authsignal
+flask
+flask-restx
+python-decouple
+flask-cors
