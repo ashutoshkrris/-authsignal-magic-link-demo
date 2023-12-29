@@ -10,7 +10,7 @@ const Dashboard = () => {
       const authSessionCookie = document.cookie.match("auth-session=([^;]+)");
 
       if (!authSessionCookie) {
-        navigate("/auth");
+        navigate("/login");
         return false;
       }
 
@@ -25,9 +25,9 @@ const Dashboard = () => {
         const response = await fetch("http://localhost:5000/api/user", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          credentials: "include"
+          credentials: "include",
         });
 
         if (!response.ok) {
@@ -37,7 +37,7 @@ const Dashboard = () => {
         const data = await response.json();
         setUserEmail(data.email);
       } catch (error) {
-        navigate("/auth");
+        navigate("/login");
       }
     };
 
@@ -46,23 +46,23 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     document.cookie = `auth-session=; max-age=0`;
-    navigate("/auth");
+    navigate("/login");
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <main className="px-3 text-center">
-        <h1>Welcome Home!</h1>
-        <p className="lead">You're logged in as {userEmail}!</p>
-        <div className="d-flex justify-content-center">
-          <button
-            className="btn btn-lg btn-dark fw-bold border-white bg-dark"
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
-        </div>
-      </main>
+    <div className="mainContainer">
+      <div className={"titleContainer"}>
+        <div>Welcome!</div>
+      </div>
+      <div className={"buttonContainer"}>
+        <div>You're logged in as {userEmail}!</div>
+        <input
+          className={"inputButton"}
+          type="button"
+          onClick={handleLogout}
+          value={"Log Out"}
+        />
+      </div>
     </div>
   );
 };
